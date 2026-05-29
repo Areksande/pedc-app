@@ -133,19 +133,19 @@
         }
     };
 
+    function resetForm() {
+    document.getElementById("pName").value = "";
+    document.getElementById("pSex").selectedIndex = 0;
+    document.getElementById("pBirth").value = "";
+    document.getElementById("pAssess").value = "";
+    document.getElementById("pAge").value = "";
 
-    function newAssessment(type = "fTrial") {
-        const fTrial = document.querySelector(".fTrial");
-        const sTrial = document.querySelector(".sTrial");
+    alert("Form has been reset.");
 
-        if (type === "fTrial") {
-            fTrial.classList.remove("d-none");
-            sTrial.classList.add("d-none");
-        } else {
-            sTrial.classList.remove("d-none");
-            fTrial.classList.add("d-none");
-        }
-    }
+    // If you have other computed outputs, clear them here too
+}
+    
+    
 
     // Initialize Tables
     function initTables(list, containerId, checkClass, rawId) {
