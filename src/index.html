@@ -10,7 +10,14 @@
 
 <body>
     <div class="main-container"> <!-- TITLE -->
-        <h1 class="main-title"> Philippine Early Childhood Development Checklist System </h1>
+        <div class="header-container">
+            <div class="header-logo">
+                <img src="pecd logo.png" alt="PECD Logo">
+            </div>
+            <div class="main-title">
+                Philippine Early Development Checklist System
+            </div>
+        </div>
 
         <!-- FORM SECTION -->
         <div class="system-header">
@@ -66,8 +73,8 @@
             </div>
         </div>
         <!-- ASSESSMENT BUTTONS -->
-        <div class="assessment-buttons"> <button class="btn-success"> 1st Assessment Trial </button>
-            <button class="btn-info"> 2nd Assessment Trial </button>
+        <div class="assessment-buttons">
+
         </div>
 
 
@@ -88,13 +95,13 @@
                         <div class="score-badge-container">
                             <div>
                                 <span class="score-label">Raw:</span>
-                                <span id="gm-raw" class="score-value ms-1">0</span>
+                                <span id="gm-raw" class="score-value">0</span>
                             </div>
                             <div>
-                                <span class="score-label text-success">Scaled Score:</span>
-                                <span id="gm-scaled" class="score-value text-success ms-1">0</span>
-                                <span class="text-muted small font-monospace ms-1">(<span
-                                        id="gm-age-display">0.0.0</span>)</span>
+                                <span class="score-label">Scaled Score:</span>
+                                <span id="gm-scaled" class="score-value">0</span>
+                                <span class="text-muted">
+                                    (<span id="gm-age-display">0.0.0</span>)</span>
                             </div>
                         </div>
                     </div>
@@ -264,22 +271,21 @@
                 </div>
             </div>
             <div class="sidebar-area">
-                <button class="btn-sidebar" onclick="saveToBatch()">
+                <button class="btn-add" onclick="saveToBatch()">
                     Add to Learners Queue
                 </button>
 
-                <div class="list-box shadow-inner" id="studentQueue">
-                    <!-- Dynamic Student Items injected here -->
+                <div class="list-box" id="studentQueue">
+                    <div class="student-item"></div>
                 </div>
 
-                <button class="btn-success" onclick="exportToExcel()">
-                    Generate Excel Data File
-                </button>
+                <button class="btn-success" onclick="exportToExcel('1st Trial BOSY')"> 1st Trial BOSY </button>
+                <button class="btn-info" onclick="exportToExcel('2nd Trial EOSY')"> 2nd Trial EOSY </button>
             </div>
 
             <!-- Global Analytical Summary Panel -->
-            <div class="card summary-card p-4 mb-5">
-                <h5 class="mb-4 text-uppercase text-center">Overall Analytics Summary</h5>
+            <div class="summary-card">
+                <h5 class="summary-text">Overall Analytics Summary</h5>
                 <div class="row text-center g-3">
                     <div class="col-md-4 border-end border-secondary border-opacity-25">
                         <div class="summary-stat-box">
