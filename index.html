@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PECD Checklist System</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="main-container"> <!-- TITLE -->
+        <div class="header-container">
+            <div class="header-logo">
+                <img src="pecd logo.png" alt="PECD Logo">
+            </div>
+            <div class="main-title">
+                Philippine Early Development Checklist System
+            </div>
+        </div>
+
+        <!-- FORM SECTION -->
+        <div class="system-header">
+            <div class="form-grid">
+                <div class="form-group">
+                    <div class="label-with-icon">
+                        <img src="reading.png" alt="Reading icon" class="form-icon">
+                        <label class="form-label">Learner's Full Name</label>
+                    </div>
+                    <input type="text" id="pName" class="form-control" placeholder="Last Name, First Name, M.I.">
+                </div>
+
+                <div class="form-group">
+                    <div class="label-with-icon">
+                        <img src="gender.png" alt="Gender icon" class="form-icon">
+                        <label class="form-label">Gender</label>
+                    </div>
+                    <select id="pSex" class="form-select">
+                        <option value="" selected disabled>Select</option>
+                        <option value="M">Male (Lalaki)</option>
+                        <option value="F">Female (Babae)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div class="label-with-icon">
+                        <img src="calendar.png" alt="Calendar icon" class="form-icon">
+                        <label class="form-label">Birthdate</label>
+                    </div>
+                    <input type="date" id="pBirth" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <div class="label-with-icon">
+                        <img src="notes.png" alt="Assessment icon" class="form-icon">
+                        <label class="form-label">Assessment Date</label>
+                    </div>
+                    <input type="date" id="pAssess" class="form-control" onchange="autoComputeAge()">
+                </div>
+
+                <div class="form-group">
+                    <div class="label-with-icon">
+                        <img src="hourglass.png" alt="Age icon" class="form-icon">
+                        <label class="form-label">Age (Y.M.D)</label>
+                    </div>
+                    <input type="text" id="pAge" class="form-control" readonly placeholder="0.0.0">
+                </div>
+
+                <div class="form-group button-group"> <button class="btn-primary" onclick="resetForm()"> New Assessment
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        <!-- ASSESSMENT BUTTONS -->
+        <div class="assessment-buttons">
+
+        </div>
+
+
+        <div class="layout-grid">
+            <div class="main-content">
+                <!-- Gross Motor Domain -->
+                <div class="card domain-card">
+                    <div class="domain-header-wrapper">
+                        <img src="run.png" alt="Gross Motor Domain" class="domain-icon">
+                        <div class="domain-header">Gross Motor Domain</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody id="gm-rows"></tbody>
+                        </table>
+                    </div>
+                    <div class="live-summary-footer">
+                        <div class="score-badge-container">
+                            <div>
+                                <span class="score-label">Raw:</span>
+                                <span id="gm-raw" class="score-value">0</span>
+                            </div>
+                            <div>
+                                <span class="score-label">Scaled Score:</span>
+                                <span id="gm-scaled" class="score-value">0</span>
+                                <span class="text-muted">
+                                    (<span id="gm-age-display">0.0.0</span>)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fine Motor Domain -->
+                <div class="card domain-card">
+                    <div class="domain-header-wrapper">
+                        <img src="motor-skills.png" alt="Fine Motor Domain" class="domain-icon">
+                        <div class="domain-header">Fine Motor Domain</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody id="fm-rows"></tbody>
+                        </table>
+                    </div>
+                    <div class="live-summary-footer">
+                        <div class="score-badge-container">
+                            <div>
+                                <span class="score-label">Raw:</span>
+                                <span id="fm-raw" class="score-value ms-1">0</span>
+                            </div>
+                            <div>
+                                <span class="score-label text-success">Scaled Score:</span>
+                                <span id="fm-scaled" class="score-value text-success ms-1">0</span>
+                                <span class="text-muted small font-monospace ms-1">(<span
+                                        id="fm-age-display">0.0.0</span>)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Self-Help Domain -->
+                <div class="card domain-card">
+                    <div class="domain-header-wrapper">
+                        <img src="cutlery-cross-couple-of-fork-and-spoon.png" alt="Self-Help Domain"
+                            class="domain-icon">
+                        <div class="domain-header">Self-Help Domain</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody id="shm-rows"></tbody>
+                        </table>
+                    </div>
+                    <div class="live-summary-footer">
+                        <div class="score-badge-container">
+                            <div>
+                                <span class="score-label">Raw:</span>
+                                <span id="shm-raw" class="score-value ms-1">0</span>
+                            </div>
+                            <div>
+                                <span class="score-label text-success">Scaled Score:</span>
+                                <span id="shm-scaled" class="score-value text-success ms-1">0</span>
+                                <span class="text-muted small font-monospace ms-1">(<span
+                                        id="shm-age-display">0.0.0</span>)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receptive Language Domain -->
+                <div class="card domain-card">
+                    <div class="domain-header-wrapper">
+                        <img src="auditory.png" alt="Receptive Language Domain" class="domain-icon">
+                        <div class="domain-header">Receptive Language Domain</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody id="rlm-rows"></tbody>
+                        </table>
+                    </div>
+                    <div class="live-summary-footer">
+                        <div class="score-badge-container">
+                            <div>
+                                <span class="score-label">Raw:</span>
+                                <span id="rlm-raw" class="score-value ms-1">0</span>
+                            </div>
+                            <div>
+                                <span class="score-label text-success">Scaled Score:</span>
+                                <span id="rlm-scaled" class="score-value text-success ms-1">0</span>
+                                <span class="text-muted small font-monospace ms-1">(<span
+                                        id="rlm-age-display">0.0.0</span>)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expressive Language Domain -->
+                <div class="card domain-card">
+                    <div class="domain-header-wrapper">
+                        <img src="chat.png" alt="Expressive Language Domain" class="domain-icon">
+                        <div class="domain-header">Expressive Language Domain</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody id="el-rows"></tbody>
+                        </table>
+                    </div>
+                    <div class="live-summary-footer">
+                        <div class="score-badge-container">
+                            <div>
+                                <span class="score-label">Raw:</span>
+                                <span id="el-raw" class="score-value ms-1">0</span>
+                            </div>
+                            <div>
+                                <span class="score-label text-success">Scaled Score:</span>
+                                <span id="el-scaled" class="score-value text-success ms-1">0</span>
+                                <span class="text-muted small font-monospace ms-1">(<span
+                                        id="el-age-display">0.0.0</span>)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cognitive Domain -->
+                <div class="card domain-card">
+                    <div class="domain-header-wrapper">
+                        <img src="brain.png" alt="Cognitive Domain" class="domain-icon">
+                        <div class="domain-header">Cognitive Domain</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody id="cm-rows"></tbody>
+                        </table>
+                    </div>
+                    <div class="live-summary-footer">
+                        <div class="score-badge-container">
+                            <div>
+                                <span class="score-label">Raw:</span>
+                                <span id="cm-raw" class="score-value ms-1">0</span>
+                            </div>
+                            <div>
+                                <span class="score-label text-success">Scaled Score:</span>
+                                <span id="cm-scaled" class="score-value text-success ms-1">0</span>
+                                <span class="text-muted small font-monospace ms-1">(<span
+                                        id="cm-age-display">0.0.0</span>)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social-Emotional Domain -->
+                <div class="card domain-card">
+                    <div class="domain-header-wrapper">
+                        <img src="factors.png" alt="Social-Emotional Domain" class="domain-icon">
+                        <div class="domain-header">Social-Emotional Domain</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody id="sem-rows"></tbody>
+                        </table>
+                    </div>
+                    <div class="live-summary-footer">
+                        <div class="score-badge-container">
+                            <div>
+                                <span class="score-label">Raw:</span>
+                                <span id="sem-raw" class="score-value ms-1">0</span>
+                            </div>
+                            <div>
+                                <span class="score-label text-success">Scaled Score:</span>
+                                <span id="sem-scaled" class="score-value text-success ms-1">0</span>
+                                <span class="text-muted small font-monospace ms-1">(<span
+                                        id="sem-age-display">0.0.0</span>)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-area">
+                <button class="btn-add" onclick="saveToBatch()">
+                    Add to Learners Queue
+                </button>
+
+                <div class="list-box" id="studentQueue">
+                    <div class="student-item"></div>
+                </div>
+
+                <button class="btn-success" onclick="exportToExcel('1st Trial BOSY')"> 1st Trial BOSY </button>
+                <button class="btn-info" onclick="exportToExcel('2nd Trial EOSY')"> 2nd Trial EOSY </button>
+            </div>
+
+            <!-- Global Analytical Summary Panel -->
+            <div class="summary-card">
+                <h5 class="summary-text">Overall Analytics Summary</h5>
+                <div class="row text-center g-3">
+                    <div class="col-md-4 border-end border-secondary border-opacity-25">
+                        <div class="summary-stat-box">
+                            <p class="mb-1 small text-uppercase">Sum of Scaled Scores</p>
+                            <h4 id="totalScaled" class="text-summary-success">0</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4 border-end border-secondary border-opacity-25">
+                        <div class="summary-stat-box">
+                            <p class="mb-1 small text-uppercase">Standard Score</p>
+                            <h4 id="overallStd">0</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="summary-stat-box">
+                            <p class="mb-1 small text-uppercase">Interpretation Statement</p>
+                            <h4 id="overallInterp" class="text-summary-highlight">-</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Right Sidebar Workspace Panel (Persistent Controls) -->
+
+    </div>
+    </div>
+
+    <!-- Script assets remain linked safely without changes to logic -->
+    <script src="libs/exceljs.min.js"></script>
+    <script src="libs/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
